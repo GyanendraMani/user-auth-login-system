@@ -1,12 +1,23 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const InitiateMongoServer = require("./config/database");
+
+// Initiate Mongo Server
+InitiateMongoServer();
 
 const app = express();
-const PORT = 5000;
 
-app.get('/', (req, res) => {
-    res.send("<h1>Hello world!!!</h1>")
+// PORT
+const PORT = process.env.PORT || 4000;
+
+// Middleware
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.json({ message: "API Working" });
 });
 
-app.listen(PORT, (req, res)=>{
-    console.log(`listening Endpoint is http://localhost:${PORT}`);
+
+app.listen(PORT, (req, res) => {
+  console.log(`Server Started at PORT ${PORT}`);
 });
